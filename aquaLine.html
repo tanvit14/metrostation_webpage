@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pune Metro Aqua Line</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      header {
+        background: #00bcd4; /* Aqua line color */
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-size: 2em;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .lang-selector {
+        text-align: right;
+        margin: 20px;
+      }
+
+      select {
+        padding: 5px 10px;
+        font-size: 1em;
+        border-radius: 5px;
+        border: 1px solid #00bcd4;
+      }
+
+      .container {
+        width: 80%;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      .stations {
+        flex: 1 1 300px;
+        max-width: 600px;
+      }
+
+      .stations h2 {
+        color: #00bcd4;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #00bcd4;
+        padding-bottom: 5px;
+      }
+
+      .stations ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .stations li {
+        background: #fff;
+        margin: 10px 0;
+        padding: 12px 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        font-size: 1.1em;
+        transition: transform 0.2s, background 0.2s;
+        cursor: pointer;
+      }
+
+      .stations li:hover {
+        transform: translateX(10px);
+        background: #e0f7fa;
+      }
+
+      .arrow {
+        font-size: 20px;
+        color: #00bcd4;
+        margin-top: 10px;
+        animation: bounce 1.5s infinite;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        background: #00bcd4;
+        color: #fff;
+        margin-top: 40px;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(15px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+
+    <!-- Language Selector -->
+    <div class="lang-selector">
+      <label for="language">🌐 Language:</label>
+      <select id="language" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="mr">Marathi</option>
+        <option value="hi">Hindi</option>
+      </select>
+    </div>
+
+    <header id="page-title">Pune Metro - Aqua Line</header>
+
+    <div class="container">
+      <div class="stations">
+        <h2 id="stations-title">Stations (Hinjewadi to Kharadi)</h2>
+        <ul id="stations-list">
+          <li>Hinjewadi Phase 1</li>
+          <div class="arrow">⬇️</div>
+          <li>Hinjewadi Phase 2</li>
+          <div class="arrow">⬇️</div>
+          <li>Hinjewadi Phase 3</li>
+          <div class="arrow">⬇️</div>
+          <li>Rajiv Gandhi Infotech Park</li>
+          <div class="arrow">⬇️</div>
+          <li>Mundhwa</li>
+          <div class="arrow">⬇️</div>
+          <li>Viman Nagar</li>
+          <div class="arrow">⬇️</div>
+          <li>Kharadi</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+      const translations = {
+        en: {
+          pageTitle: "Pune Metro - Aqua Line",
+          stationsTitle: "Stations (Vanaz to Kharadi)",
+          stations: [
+          "Vanaz",
+          "Ideal Colony",
+          "Nal Stop",
+          "Garware College",
+          "Deccan Gymkhana",
+          "Chhatrapati Sambhaji Udyan",
+          "PMC",
+          "District Court (This station is underground - please carry cash with you Thank you)",
+          "Mangalwar Peth",
+          "Pune Rly. Station",
+          "Ruby Hall Clinic",
+          "Bund Garden",
+          "Yerawada",
+          "Kalyani Nagar",
+          "Ramwadi",
+          ],
+          footerText: "© 2025 Pune Metro Project. All rights reserved.",
+        },
+        mr: {
+          pageTitle: "पुणे मेट्रो - अ‍ॅक्वा मार्ग",
+          stationsTitle: "स्थानके (वनाझ ते खराडी)",
+          stations: [
+          "वनाझ",
+          "आनंद नगर",
+          "आयडियल कॉलनी",
+          "नळ स्टॉप",
+          "गारवे महाविद्यालय",
+          "डेक्कन जिमखाना",
+          "छत्रपती संभाजी उद्यान",
+          "पीएमसी (पुणे महानगरपालिका)",
+          "जिल्हा न्यायालयहे (स्थानक भूमिगत कृपया रोख पैसे सोबत ठेवा. धन्यवाद.)",
+          "मंगळवार पेठ",
+          "पुणे रेल्वे स्थानक",
+          "रुबी हॉल दवाखाना",
+          "बंड गार्डन",
+          "येरवडा",
+          "कल्याणी नगर",
+          "रामवाडी",
+          ],
+          footerText: "© २०२५ पुणे मेट्रो प्रकल्प. सर्व हक्क राखीव.",
+        },
+        hi: {
+          pageTitle: "पुणे मेट्रो - एक्वा लाइन",
+          stationsTitle: "स्टेशन्स (वनाज़ से खराड़ी)",
+          stations: [
+           "वनाज़",
+           "आनंद नगर",
+           "आइडियल कॉलोनी",
+           "नल स्टॉप",
+           "गारवे कॉलेज",
+           "डेक्कन जिमखाना",
+           "छत्रपति संभाजी उद्यान",
+           "पीएमसी (पुणे महानगरपालिका)",
+           "जिला न्यायालय (यह स्टेशन भूमिगत है कृपया नगद साथ रखें। धन्यवाद।)",
+           "मंगलवार पेठ",
+           "पुणे रेलवे स्टेशन",
+           "रुबी हाल क्लिनिक",
+           "बंड गार्डन",
+           "येरवड़ा",
+           "कल्याणी नगर",
+           "रामवाड़ी",
+          ],
+          footerText: "© 2025 पुणे मेट्रो प्रोजेक्ट. सर्वाधिकार सुरक्षित.",
+        },
+      };
+
+      function changeLanguage() {
+        const lang = document.getElementById("language").value;
+
+        // Page Title
+        document.getElementById("page-title").innerText =
+          translations[lang].pageTitle;
+
+        // Stations Title
+        document.getElementById("stations-title").innerText =
+          translations[lang].stationsTitle;
+
+        // Stations List
+        const stationsList = document.getElementById("stations-list");
+        stationsList.innerHTML = "";
+        translations[lang].stations.forEach((station, index) => {
+          stationsList.innerHTML += `<li>${station}</li>`;
+          if (index < translations[lang].stations.length - 1) {
+            stationsList.innerHTML += `<div class="arrow">⬇️</div>`;
+          }
+        });
+
+        // Footer
+        if (document.getElementById("footer-text")) {
+          document.getElementById("footer-text").innerText =
+            translations[lang].footerText;
+        }
+      }
+
+      // Load header & footer
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+          changeLanguage(); // apply default English
+        });
+
+      fetch("footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer-placeholder").innerHTML = data;
+          changeLanguage(); // apply default English
+        });
+    </script>
+  </body>
+</html>

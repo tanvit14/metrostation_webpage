@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pune Metro Navbar</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #dd6ad8;
+        padding: 10px 40px;
+        border-bottom: 1px solid #ddd;
+        position: relative;
+      }
+
+      /* Logo section */
+      .logo {
+        display: flex;
+        align-items: center;
+        font-size: 30px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .logo img {
+        width: 60px;
+        height: 60px;
+        margin-right: 8px;
+      }
+
+      /* Menu buttons */
+      .menu {
+        display: flex;
+        gap: 10px;
+      }
+
+      .menu button {
+        padding: 8px 14px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        color: white;
+        transition: 0.3s;
+      }
+
+      .home {
+        background: #6c757d;
+      } /* Gray */
+      .purple {
+        background: #6f42c1;
+      } /* Purple */
+      .blue {
+        background: #007bff;
+      } /* Blue */
+      .aqua {
+        background: #17a2b8;
+      } /* Aqua */
+      .pink {
+        background: #e83e8c;
+      } /* Pink */
+      .tickets {
+        background: #28a745;
+      } /* Green */
+      .about {
+        background: #ffc107;
+        color: black;
+      } /* Yellow */
+      .contact {
+        background: #fd7e14;
+      } /* Orange */
+
+      .menu button:hover {
+        opacity: 0.8;
+      }
+
+      /* Language dropdown */
+      .lang-select {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <!-- Logo -->
+      <div class="logo">
+        <img src="/Pune_Metro/Assets/PuneMetro_logo.png" alt="Metro Logo" />
+        Pune Metro
+      </div>
+
+      <!-- Right side menu -->
+      <div class="menu">
+        <a href="index.html"
+          ><button class="home" id="btn-home">Home</button></a
+        >
+        <a href="purpleLine.html"
+          ><button class="purple" id="btn-purple">Purple Line</button></a
+        >
+        <a href="aquaLine.html"
+          ><button class="aqua" id="btn-aqua">Aqua Line</button></a
+        >
+        <!--button class="pink" disabled id="btn-pink">Pink Line</button-->
+        <a href="ticket.html"
+          ><button class="tickets" id="btn-tickets">Tickets</button></a
+        >
+        <a href="about.html"
+          ><button class="about" id="btn-about">About</button></a
+        >
+        <a href="contactUs.html"
+          ><button class="contact" id="btn-contact">Contact</button></a
+        >
+      </div>
+
+      <!-- Language selector -->
+      <select class="lang-select" onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="mr">मराठी</option>
+        <option value="hi">हिंदी</option>
+      </select>
+    </nav>
+
+    <script>
+      const translations = {
+        en: {
+          home: "Home",
+          purple: "Purple Line",
+          aqua: "Aqua Line",
+          pink: "Pink Line",
+          tickets: "Tickets",
+          about: "About",
+          contact: "Contact",
+        },
+        mr: {
+          home: "मुख्यपृष्ठ",
+          purple: "जांभळा लाइन",
+          aqua: "एक्वा लाइन",
+          pink: "पिंक लाइन",
+          tickets: "तिकीटे",
+          about: "बद्दल",
+          contact: "संपर्क",
+        },
+        hi: {
+          home: "मुखपृष्ठ",
+          purple: "बैंगनी लाइन",
+          aqua: "एक्वा लाइन",
+          pink: "गुलाबी लाइन",
+          tickets: "टिकट",
+          about: "के बारे में",
+          contact: "संपर्क करें",
+        },
+      };
+
+      function changeLanguage(lang) {
+        document.getElementById("btn-home").innerText = translations[lang].home;
+        document.getElementById("btn-purple").innerText =
+          translations[lang].purple;
+        document.getElementById("btn-aqua").innerText = translations[lang].aqua;
+        document.getElementById("btn-pink").innerText = translations[lang].pink;
+        document.getElementById("btn-tickets").innerText =
+          translations[lang].tickets;
+        document.getElementById("btn-about").innerText =
+          translations[lang].about;
+        document.getElementById("btn-contact").innerText =
+          translations[lang].contact;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pune Metro - Ticket Booking</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      .lang-select {
+        position: fixed;
+        top: 10px;
+        right: 200px;
+        padding: 2px 4px; /* very small padding */
+        border-radius: 5px;
+        border: none;
+        font-weight: bold;
+        font-size: 11px; /* smaller text */
+        cursor: pointer;
+        z-index: 1000;
+        width: 60px; /* small fixed width */
+        text-align: center; /* keep text centered */
+      }
+
+      header {
+        background: #6a1b9a;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-size: 2em;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .container {
+        width: 90%;
+        max-width: 600px;
+        margin: 50px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        text-align: center;
+        color: #6a1b9a;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #6a1b9a;
+        padding-bottom: 5px;
+      }
+
+      label {
+        display: block;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      select,
+      input[type="number"],
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 8px;
+        background: #6a1b9a;
+        color: #fff;
+        font-size: 1.2em;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background: #4a148c;
+      }
+
+      .fare {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .payment-section {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 2px solid #6a1b9a;
+      }
+
+      .success-message {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 1.2em;
+        color: green;
+        font-weight: bold;
+      }
+
+      .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .popup-content {
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .popup-content button {
+        width: auto;
+        margin: 10px 5px 0 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+
+    <!-- Language Selector -->
+    <select class="lang-select" onchange="changeLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="mr">मराठी</option>
+      <option value="hi">हिंदी</option>
+    </select>
+
+    <header id="page-header">Pune Metro - Ticket Booking</header>
+
+    <div class="container">
+      <!-- Language Selector -->
+      <select class="lang-select" onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="mr">मराठी</option>
+        <option value="hi">हिंदी</option>
+      </select>
+      <h2 id="booking-heading">Book Your Ticket</h2>
+
+      <label for="line" id="line-label">Select Line</label>
+      <select id="line" onchange="updateStations()">
+        <option value="purple">Purple Line</option>
+        <option value="aqua">Aqua Line</option>
+        <!--option value="blue">Blue Line</option-->
+        <!--option value="pink">Pink Line</option-->
+      </select>
+
+      <label for="source" id="source-label">Source Station</label>
+      <select id="source"></select>
+
+      <label for="destination" id="destination-label"
+        >Destination Station</label
+      >
+      <select id="destination"></select>
+
+      <label for="tickets" id="tickets-label">Number of Tickets</label>
+      <input type="number" id="tickets" value="1" min="1" max="10" />
+
+      <button id="summary-btn" onclick="showSummary()">
+        Show Ticket Summary
+      </button>
+
+      <div class="fare" id="fare"></div>
+
+      <div class="payment-section">
+        <h2 id="payment-heading">Payment Details</h2>
+
+        <label for="cardName" id="cardName-label">Cardholder Name</label>
+        <input type="text" id="cardName" placeholder="Enter your name" />
+
+        <label for="cardNumber" id="cardNumber-label">Card Number</label>
+        <input
+          type="text"
+          id="cardNumber"
+          placeholder="XXXX-XXXX-XXXX-XXXX"
+          maxlength="19"
+        />
+
+        <label for="expiry" id="expiry-label">Expiry Date</label>
+        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" />
+
+        <label for="cvv" id="cvv-label">CVV</label>
+        <input type="password" id="cvv" placeholder="XXX" maxlength="3" />
+
+        <button id="confirm-btn" onclick="confirmBooking()">
+          Confirm Booking
+        </button>
+
+        <div class="success-message" id="successMessage"></div>
+      </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <div class="popup" id="popup">
+      <div class="popup-content">
+        <h3 id="popup-heading">Ticket Summary</h3>
+        <p id="summaryText"></p>
+        <button onclick="closePopup()">Close</button>
+        <button onclick="calculateFare(); closePopup();">Proceed</button>
+      </div>
+    </div>
+    <script>
+      const metroLines = {
+      purple: [
+          "PCMC",
+          "Sant Tukaram Nagar",
+          "Bhosari / Nashik Phata",
+          "Kasarwadi",
+          "Phugewadi",
+          "Dapodi",
+          "Bopodi",
+          "Khadki",
+          "Range Hill",
+          "Shivaji Nagar",
+          "Civil Court",
+          "Kasba Peth",
+          "Mandai",
+          "Swargate",
+        ],
+        aqua: [
+          "Vanaz",
+          "Anand Nagar",
+          "Ideal Colony",
+          "Nal Stop",
+          "Garware College",
+          "Deccan Gymkhana",
+          "Chhatrapati Sambhaji Udyan",
+          "PMC",
+          "District Court",
+          "Mangalwar Peth",
+          "Pune Rly. Station",
+          "Ruby Hall Clinic",
+          "Bund Garden",
+          "Yerawada",
+          "Kalyani Nagar",
+          "Ramwadi",
+        ],
+};
+      const translations = {
+        en: {
+          pageHeader: "Pune Metro - Ticket Booking",
+          bookingHeading: "Book Your Ticket",
+          lineLabel: "Select Line",
+          sourceLabel: "Source Station",
+          destinationLabel: "Destination Station",
+          ticketsLabel: "Number of Tickets",
+          summaryBtn: "Show Ticket Summary",
+          paymentHeading: "Payment Details",
+          cardName: "Cardholder Name",
+          cardNumber: "Card Number",
+          expiry: "Expiry Date",
+          cvv: "CVV",
+          popupHeading: "Ticket Summary",
+        },
+        mr: {
+          pageHeader: "पुणे मेट्रो - तिकीट बुकिंग",
+          bookingHeading: "आपले तिकीट बुक करा",
+          lineLabel: "लाईन निवडा",
+          sourceLabel: "सुरुवातीचे स्टेशन",
+          destinationLabel: "गंतव्य स्टेशन",
+          ticketsLabel: "तिकीटे संख्या",
+          summaryBtn: "तिकीट सारांश दाखवा",
+          paymentHeading: "पेमेंट तपशील",
+          cardName: "कार्डधारकाचे नाव",
+          cardNumber: "कार्ड क्रमांक",
+          expiry: "अवधि समाप्ती",
+          cvv: "सीव्हीव्ही",
+          popupHeading: "तिकीट सारांश",
+        },
+        hi: {
+          pageHeader: "पुणे मेट्रो - टिकट बुकिंग",
+          bookingHeading: "अपना टिकट बुक करें",
+          lineLabel: "लाइन चुनें",
+          sourceLabel: "स्रोत स्टेशन",
+          destinationLabel: "गंतव्य स्टेशन",
+          ticketsLabel: "टिकट संख्या",
+          summaryBtn: "टिकट सारांश दिखाएं",
+          paymentHeading: "भुगतान विवरण",
+          cardName: "कार्डधारक का नाम",
+          cardNumber: "कार्ड नंबर",
+          expiry: "समाप्ति तिथि",
+          cvv: "सीवीवी",
+          popupHeading: "टिकट सारांश",
+        },
+      };
+      function changeLanguage(lang) {
+        document.getElementById("page-header").innerText =
+          translations[lang].pageHeader;
+        document.getElementById("booking-heading").innerText =
+          translations[lang].bookingHeading;
+        document.getElementById("line-label").innerText =
+          translations[lang].lineLabel;
+        document.getElementById("source-label").innerText =
+          translations[lang].sourceLabel;
+        document.getElementById("destination-label").innerText =
+          translations[lang].destinationLabel;
+        document.getElementById("tickets-label").innerText =
+          translations[lang].ticketsLabel;
+        document.getElementById("summary-btn").innerText =
+          translations[lang].summaryBtn;
+        document.getElementById("payment-heading").innerText =
+          translations[lang].paymentHeading;
+        document.getElementById("cardName-label").innerText =
+          translations[lang].cardName;
+        document.getElementById("cardNumber-label").innerText =
+          translations[lang].cardNumber;
+        document.getElementById("expiry-label").innerText =
+          translations[lang].expiry;
+        document.getElementById("cvv-label").innerText = translations[lang].cvv;
+        document.getElementById("popup-heading").innerText =
+          translations[lang].popupHeading;
+
+        updateStations(); // Refresh station dropdowns
+      }
+
+      function updateStations() {
+        const line = document.getElementById("line").value;
+        const sourceSelect = document.getElementById("source");
+        const destSelect = document.getElementById("destination");
+
+        sourceSelect.innerHTML = "";
+        destSelect.innerHTML = "";
+
+        metroLines[line].forEach((station) => {
+          const option1 = document.createElement("option");
+          option1.value = station;
+          option1.text = station;
+          sourceSelect.add(option1);
+
+          const option2 = document.createElement("option");
+          option2.value = station;
+          option2.text = station;
+          destSelect.add(option2);
+        });
+      }
+
+      function calculateFare() {
+        const source = document.getElementById("source").value;
+        const destination = document.getElementById("destination").value;
+        const tickets = parseInt(document.getElementById("tickets").value);
+
+        if (source === destination) {
+          alert("Source and Destination cannot be the same!");
+          return;
+        }
+
+        const line = document.getElementById("line").value;
+        const stations = metroLines[line];
+        const indexSource = stations.indexOf(source);
+        const indexDest = stations.indexOf(destination);
+        const distance = Math.abs(indexDest - indexSource);
+
+        const fare = distance * 20 * tickets; // ₹20 per station
+        document.getElementById("fare").innerText = `Estimated Fare: ₹${fare}`;
+      }
+
+      function showSummary() {
+        const line = document.getElementById("line").value;
+        const source = document.getElementById("source").value;
+        const dest = document.getElementById("destination").value;
+        const tickets = document.getElementById("tickets").value;
+
+        if (source === dest) {
+          alert("Source and Destination cannot be the same!");
+          return;
+        }
+
+        const stations = metroLines[line];
+        const distance = Math.abs(
+          stations.indexOf(dest) - stations.indexOf(source)
+        );
+        const fare = distance * 3 * tickets;
+
+        document.getElementById("summaryText").innerText = `
+          Line: ${line.charAt(0).toUpperCase() + line.slice(1)}
+          Source: ${source}
+          Destination: ${dest}
+          Tickets: ${tickets}
+          Estimated Fare: ₹${fare}
+        `;
+
+        document.getElementById("popup").style.display = "flex";
+      }
+
+      function closePopup() {
+        document.getElementById("popup").style.display = "none";
+      }
+
+      function confirmBooking() {
+        const name = document.getElementById("cardName").value;
+        const card = document.getElementById("cardNumber").value;
+        const expiry = document.getElementById("expiry").value;
+        const cvv = document.getElementById("cvv").value;
+
+        if (!name || !card || !expiry || !cvv) {
+          alert("Please fill in all payment details.");
+          return;
+        }
+
+        document.getElementById("successMessage").innerText =
+          "✅ Payment Successful! Your Pune Metro ticket is booked.";
+      }
+
+      window.onload = function () {
+        updateStations();
+        changeLanguage("en"); // Default language
+      };
+
+      fetch("header.html")
+        .then((res) => res.text())
+        .then(
+          (data) =>
+            (document.getElementById("header-placeholder").innerHTML = data)
+        );
+
+      fetch("footer.html")
+        .then((res) => res.text())
+        .then(
+          (data) =>
+            (document.getElementById("footer-placeholder").innerHTML = data)
+        );
+    </script>
+  </body>
+</html>

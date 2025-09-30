@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pune Metro Purple Line</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Language dropdown */
+      .lang-select {
+        position: fixed;
+        top: 10px;
+        right: 20px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 1000;
+      }
+
+      header {
+        background: #6a1b9a; /* Purple line color */
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        font-size: 2em;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .container {
+        width: 80%;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      .stations {
+        flex: 1 1 300px;
+        max-width: 600px;
+      }
+
+      .stations h2 {
+        color: #6a1b9a;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #6a1b9a;
+        padding-bottom: 5px;
+      }
+
+      .stations ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .stations li {
+        background: #fff;
+        margin: 10px 0;
+        padding: 12px 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        font-size: 1.1em;
+        transition: transform 0.2s, background 0.2s;
+        cursor: pointer;
+      }
+
+      .stations li:hover {
+        transform: translateX(10px);
+        background: #f3e5f5;
+      }
+
+      .arrow {
+        font-size: 20px;
+        color: purple;
+        margin-top: 10px;
+        animation: bounce 1.5s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(15px);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .container {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+
+    <!-- Language Selector -->
+    <select class="lang-select" onchange="changeLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="mr">मराठी</option>
+      <option value="hi">हिंदी</option>
+    </select>
+
+    <header>Pune Metro - Purple Line</header>
+
+    <div class="container">
+      <div class="stations">
+        <h2 id="stations-heading">Stations (PCMC to Swargate)</h2>
+        <ul id="stations-list">
+          <li>PCMC (Pimpri Chinchwad Municipal Corporation)</li>
+          <div class="arrow">⬇️</div>
+          <li>Sant Tukaram Nagar</li>
+          <div class="arrow">⬇️</div>
+          <li>Bhosari / Nashik Phata</li>
+          <div class="arrow">⬇️</div>
+          <li>Kasarwadi</li>
+          <div class="arrow">⬇️</div>
+          <li>Phugewadi</li>
+          <div class="arrow">⬇️</div>
+          <li>Dapodi</li>
+          <div class="arrow">⬇️</div>
+          <li>Bopodi</li>
+          <div class="arrow">⬇️</div>
+          <li>Khadki</li>
+          <div class="arrow">⬇️</div>
+          <li>Range Hill</li>
+          <div class="arrow">⬇️</div>
+          <li>Shivaji Nagar</li>
+          <div class="arrow">⬇️</div>
+          <li>Civil Court (renamed Pune District)</li>
+          <div class="arrow">⬇️</div>
+          <li>Kasba Peth (renamed from Budhwar Peth)</li>
+          <div class="arrow">⬇️</div>
+          <li>Mandai</li>
+          <div class="arrow">⬇️</div>
+          <li>Swargate</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+      const stationsTranslations = {
+        en: {
+          heading: "Stations (PCMC to Swargate)",
+          stations: [
+            "PCMC (Pimpri Chinchwad Municipal Corporation)",
+            "Sant Tukaram Nagar",
+            "Bhosari / Nashik Phata",
+            "Kasarwadi",
+            "Phugewadi",
+            "Dapodi",
+            "Bopodi",
+            "Khadki",
+            "Range Hill",
+            "Shivaji Nagar(This station is underground - please carry cash with you Thank you)",
+            "Civil Court (renamed Pune District)",
+            "Kasba Peth (renamed from Budhwar Peth)",
+            "Mandai(This station is underground - please carry cash with you Thank you)",
+            "Swargate(This station is underground - please carry cash with you Thank you)",
+          ],
+        },
+        mr: {
+          heading: "स्थानक (PCMC ते स्वारगेट)",
+          stations: [
+            "PCMC (पिंपरी चिंचवड महानगरपालिका)",
+            "संत तुकाराम नगर",
+            "भोसरी / नाशिक फाटा",
+            "कासरवाडी",
+            "फुगेवाडी",
+            "दापोदी",
+            "बोपोडी",
+            "खडकी",
+            "रेंज हिल",
+            "शिवाजी नगर (हे स्थानक भूमिगत कृपया रोख पैसे सोबत ठेवा. धन्यवाद.)",
+            "सिव्हिल कोर्ट (पुणे जिल्हा)",
+            "कसबा पेठ (बुधवार पेठ पासून बदलले)",
+            "मंडई (हे स्थानक भूमिगत कृपया रोख पैसे सोबत ठेवा. धन्यवाद.)",
+            "स्वारगेट (हे स्थानक भूमिगत कृपया रोख पैसे सोबत ठेवा. धन्यवाद.)",
+          ],
+        },
+        hi: {
+          heading: "स्टेशन (PCMC से स्वारगेट)",
+          stations: [
+            "PCMC (पिंपरी चिंचवड नगर निगम)",
+            "संत तुकाराम नगर",
+            "भोसरी / नासिक फाटा",
+            "कासरवाडी",
+            "फुगेवाडी",
+            "दापोदी",
+            "बोपोडी",
+            "खडकी",
+            "रेंज हिल",
+            "शिवाजी नगर (यह स्टेशन भूमिगत है कृपया नगद साथ रखें। धन्यवाद।)",
+            "सिविल कोर्ट (पुणे जिला)",
+            "कसबा पेठ (बुधवार पेठ से बदला गया)",
+            "मंडई (यह स्टेशन भूमिगत है कृपया नगद साथ रखें। धन्यवाद।)",
+            "स्वारगेट (यह स्टेशन भूमिगत है कृपया नगद साथ रखें। धन्यवाद।)",
+          ],
+        },
+      };
+
+      function changeLanguage(lang) {
+        const heading = document.getElementById("stations-heading");
+        const list = document.getElementById("stations-list");
+
+        heading.innerText = stationsTranslations[lang].heading;
+
+        // Clear list and rebuild
+        list.innerHTML = "";
+        const stations = stationsTranslations[lang].stations;
+        stations.forEach((station, index) => {
+          const li = document.createElement("li");
+          li.innerText = station;
+          list.appendChild(li);
+          if (index < stations.length - 1) {
+            const arrow = document.createElement("div");
+            arrow.className = "arrow";
+            arrow.innerText = "⬇️";
+            list.appendChild(arrow);
+          }
+        });
+      }
+
+      fetch("header.html")
+        .then((res) => res.text())
+        .then(
+          (data) =>
+            (document.getElementById("header-placeholder").innerHTML = data)
+        );
+
+      fetch("footer.html")
+        .then((res) => res.text())
+        .then(
+          (data) =>
+            (document.getElementById("footer-placeholder").innerHTML = data)
+        );
+    </script>
+  </body>
+</html>

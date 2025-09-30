@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Pune Metro</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1000px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      h2 {
+        color: #6a1b9a;
+        text-align: center;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #6a1b9a;
+        padding-bottom: 5px;
+      }
+
+      .section {
+        margin: 30px 0;
+      }
+
+      .section img {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        margin-top: 20px;
+      }
+
+      .section p {
+        font-size: 1.1em;
+        line-height: 1.6em;
+        margin-top: 15px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        background: #6a1b9a;
+        color: #fff;
+        margin-top: 40px;
+      }
+
+      .lang-selector {
+        text-align: right;
+        margin: 20px;
+      }
+
+      select {
+        padding: 5px 10px;
+        font-size: 1em;
+        border-radius: 5px;
+        border: 1px solid #6a1b9a;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="header-placeholder"></div>
+
+    <!-- Language Selector -->
+    <div class="lang-selector">
+      <label for="language">🌐 Language:</label>
+      <select id="language" onchange="changeLanguage()">
+        <option value="en">English</option>
+        <option value="mr">Marathi</option>
+        <option value="hi">Hindi</option>
+      </select>
+    </div>
+
+    <header id="page-title">About Pune Metro</header>
+
+    <div class="container">
+      <h2 id="about-title">About Pune Metro</h2>
+
+      <div class="section">
+        <h3 id="history-title">History</h3>
+        <p id="history-text">
+          Pune Metro is a rapid transit system serving the city of Pune and
+          Pimpri-Chinchwad in Maharashtra. It was initiated to reduce traffic
+          congestion, promote public transport, and provide safe and efficient
+          travel across the city.
+        </p>
+        <img
+          src="/Pune_Metro/Assets/Metro Photo.jpg"
+          alt="Pune Metro History"
+        />
+      </div>
+
+      <div class="section">
+        <h3 id="lines-title">Metro Lines</h3>
+        <p id="lines-text">
+          Pune Metro currently has multiple lines: Purple Line, Aqua Line, Blue
+          Line, and Pink Line. The Purple and Aqua Lines are operational,
+          connecting major hubs in the city and suburbs.
+        </p>
+        <img src="/Pune_Metro/Assets/MetriLine.jpg" alt="Pune Metro Lines" />
+      </div>
+
+      <div class="section">
+        <h3 id="vision-title">Vision & Mission</h3>
+        <p id="vision-text">
+          Pune Metro aims to provide a modern, eco-friendly, and safe public
+          transport system for citizens. The vision is to reduce traffic
+          congestion, decrease pollution, and provide a convenient travel option
+          for daily commuters.
+        </p>
+        <img src="/Pune_Metro/Assets/Vision.jpg" alt="Pune Metro Vision" />
+      </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+      // Language Data
+      const translations = {
+        en: {
+          pageTitle: "About Pune Metro",
+          aboutTitle: "About Pune Metro",
+          historyTitle: "History",
+          historyText:
+            "Pune Metro is a rapid transit system serving the city of Pune and Pimpri-Chinchwad in Maharashtra. It was initiated to reduce traffic congestion, promote public transport, and provide safe and efficient travel across the city.",
+          linesTitle: "Metro Lines",
+          linesText:
+            "Pune Metro currently has multiple lines: Purple Line, Aqua Line, Blue Line, and Pink Line. The Purple and Aqua Lines are operational, connecting major hubs in the city and suburbs.",
+          visionTitle: "Vision & Mission",
+          visionText:
+            "Pune Metro aims to provide a modern, eco-friendly, and safe public transport system for citizens. The vision is to reduce traffic congestion, decrease pollution, and provide a convenient travel option for daily commuters.",
+        },
+        mr: {
+          pageTitle: "पुणे मेट्रो विषयी",
+          aboutTitle: "पुणे मेट्रो विषयी",
+          historyTitle: "इतिहास",
+          historyText:
+            "पुणे मेट्रो ही पुणे आणि पिंपरी-चिंचवड शहराची जलद परिवहन प्रणाली आहे. वाहतूक कोंडी कमी करणे, सार्वजनिक वाहतुकीला प्रोत्साहन देणे आणि सुरक्षित व कार्यक्षम प्रवास उपलब्ध करून देण्यासाठी ही योजना सुरू करण्यात आली.",
+          linesTitle: "मेट्रो मार्ग",
+          linesText:
+            "पुणे मेट्रोकडे सध्या अनेक मार्ग आहेत: जांभळा मार्ग, अ‍ॅक्वा मार्ग, निळा मार्ग आणि गुलाबी मार्ग. जांभळा व अ‍ॅक्वा मार्ग कार्यरत असून, ते शहर व उपनगरातील महत्त्वाच्या भागांना जोडतात.",
+          visionTitle: "दृष्टीकोन व उद्दिष्ट",
+          visionText:
+            "पुणे मेट्रोचे उद्दिष्ट नागरिकांसाठी आधुनिक, पर्यावरणपूरक व सुरक्षित सार्वजनिक वाहतूक व्यवस्था उपलब्ध करून देणे आहे. दृष्टीकोन म्हणजे वाहतूक कोंडी कमी करणे, प्रदूषण घटवणे आणि दैनंदिन प्रवाशांसाठी सोयीस्कर प्रवासाची सुविधा उपलब्ध करणे.",
+        },
+        hi: {
+          pageTitle: "पुणे मेट्रो के बारे में",
+          aboutTitle: "पुणे मेट्रो के बारे में",
+          historyTitle: "इतिहास",
+          historyText:
+            "पुणे मेट्रो पुणे और पिंपरी-चिंचवड़ शहर की एक तेज़ परिवहन प्रणाली है। इसका उद्देश्य ट्रैफिक जाम कम करना, सार्वजनिक परिवहन को बढ़ावा देना और नागरिकों को सुरक्षित व कुशल यात्रा प्रदान करना है।",
+          linesTitle: "मेट्रो लाइनें",
+          linesText:
+            "पुणे मेट्रो की वर्तमान में कई लाइनें हैं: पर्पल लाइन, एक्वा लाइन, ब्लू लाइन और पिंक लाइन। इनमें से पर्पल और एक्वा लाइनें चालू हैं, जो शहर और उपनगरों के मुख्य केंद्रों को जोड़ती हैं।",
+          visionTitle: "दृष्टि और मिशन",
+          visionText:
+            "पुणे मेट्रो का उद्देश्य नागरिकों को आधुनिक, पर्यावरण अनुकूल और सुरक्षित सार्वजनिक परिवहन उपलब्ध कराना है। दृष्टि है ट्रैफिक जाम को कम करना, प्रदूषण घटाना और दैनिक यात्रियों को सुविधाजनक यात्रा का विकल्प देना।",
+        },
+      };
+
+      function changeLanguage() {
+        const lang = document.getElementById("language").value;
+        document.getElementById("page-title").innerText =
+          translations[lang].pageTitle;
+        document.getElementById("about-title").innerText =
+          translations[lang].aboutTitle;
+        document.getElementById("history-title").innerText =
+          translations[lang].historyTitle;
+        document.getElementById("history-text").innerText =
+          translations[lang].historyText;
+        document.getElementById("lines-title").innerText =
+          translations[lang].linesTitle;
+        document.getElementById("lines-text").innerText =
+          translations[lang].linesText;
+        document.getElementById("vision-title").innerText =
+          translations[lang].visionTitle;
+        document.getElementById("vision-text").innerText =
+          translations[lang].visionText;
+      }
+
+      // Load header & footer
+      fetch("header.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
+        });
+
+      fetch("footer.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("footer-placeholder").innerHTML = data;
+        });
+    </script>
+  </body>
+</html>

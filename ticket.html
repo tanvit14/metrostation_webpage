@@ -154,12 +154,6 @@
     <header id="page-header">Pune Metro - Ticket Booking</header>
 
     <div class="container">
-      <!-- Language Selector -->
-      <select class="lang-select" onchange="changeLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="mr">मराठी</option>
-        <option value="hi">हिंदी</option>
-      </select>
       <h2 id="booking-heading">Book Your Ticket</h2>
 
       <label for="line" id="line-label">Select Line</label>
@@ -186,6 +180,7 @@
       </button>
 
       <div class="fare" id="fare"></div>
+      <div class="success-message" id="successMessage"></div>
 
       <div class="payment-section">
         <h2 id="payment-heading">Payment Details</h2>
@@ -222,7 +217,7 @@
         <h3 id="popup-heading">Ticket Summary</h3>
         <p id="summaryText"></p>
         <button onclick="closePopup()">Close</button>
-        <button onclick="calculateFare(); closePopup();">Proceed</button>
+        <button onclick="confirmBooking(); closePopup();">Proceed</button>
       </div>
     </div>
     <script>
@@ -395,7 +390,7 @@
         const distance = Math.abs(
           stations.indexOf(dest) - stations.indexOf(source)
         );
-        const fare = distance * 3 * tickets;
+        const fare = distance * 20 * tickets;
 
         document.getElementById("summaryText").innerText = `
           Line: ${line.charAt(0).toUpperCase() + line.slice(1)}
